@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NCM 121 Reviewer — Session 6B–10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5F3; --ink:#152420; --line:#D6DED9;
+  --teal:#0F5C56; --teal-deep:#0A3F3B; --amber:#B5762A;
+  --good:#2E7D4F; --good-bg:#E4F1E8; --bad:#B23A2E; --bad-bg:#FBE7E4;
+  --card:#FFFFFF;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  box-sizing:border-box;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#101915; --ink:#E7EFEA; --line:#2A3B34;
+    --teal:#5FC9BE; --teal-deep:#8FE0D6; --amber:#E3A45C;
+    --good:#7FD79E; --good-bg:#173328; --bad:#F09088; --bad-bg:#3A1F1C;
+    --card:#152420;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101915; --ink:#E7EFEA; --line:#2A3B34;
+  --teal:#5FC9BE; --teal-deep:#8FE0D6; --amber:#E3A45C;
+  --good:#7FD79E; --good-bg:#173328; --bad:#F09088; --bad-bg:#3A1F1C;
+  --card:#152420;
+}
+*{box-sizing:border-box;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Source Sans 3',sans-serif; line-height:1.5;
+  min-height:100%;
+}
+.wrap{max-width:640px; margin:0 auto; padding:28px 20px 60px;}
+h1{
+  font-family:'Fraunces',serif; font-weight:600; font-size:1.5rem;
+  margin:0 0 2px; letter-spacing:-0.01em; color:var(--teal-deep);
+}
+.sub{color:var(--ink); opacity:0.6; font-size:0.9rem; margin:0 0 22px;}
+
+.progress-row{display:flex; align-items:center; gap:12px; margin-bottom:18px;}
+.progress-track{flex:1; height:6px; border-radius:3px; background:var(--line); overflow:hidden;}
+.progress-fill{height:100%; background:var(--teal); border-radius:3px; transition:width .3s ease;}
+.progress-label{font-size:0.85rem; opacity:0.7; white-space:nowrap; font-variant-numeric:tabular-nums;}
+
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:24px 22px; margin-bottom:16px;
+}
+.part-label{
+  font-size:0.75rem; text-transform:uppercase; letter-spacing:0.04em;
+  color:var(--amber); font-weight:600; margin-bottom:10px;
+}
+.q-text{font-size:1.08rem; line-height:1.5; margin:0 0 18px; font-weight:500;}
+
+.opt{
+  display:flex; align-items:flex-start; gap:10px; width:100%; text-align:left;
+  background:transparent; border:1px solid var(--line); border-radius:10px;
+  padding:12px 14px; margin-bottom:9px; cursor:pointer; font:inherit; color:inherit;
+  font-size:0.97rem; transition:border-color .15s ease, background .15s ease;
+}
+.opt:hover:not(:disabled){border-color:var(--teal);}
+.opt:focus-visible{outline:2px solid var(--teal); outline-offset:2px;}
+.opt-letter{
+  flex:none; width:24px; height:24px; border-radius:50%; border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:600;
+}
+.opt:disabled{cursor:default;}
+.opt.correct{background:var(--good-bg); border-color:var(--good);}
+.opt.correct .opt-letter{background:var(--good); border-color:var(--good); color:#fff;}
+.opt.incorrect{background:var(--bad-bg); border-color:var(--bad);}
+.opt.incorrect .opt-letter{background:var(--bad); border-color:var(--bad); color:#fff;}
+.opt.dim{opacity:0.55;}
+
+.rationale{
+  margin-top:14px; padding:12px 14px; border-radius:10px;
+  background:var(--paper); border:1px solid var(--line); font-size:0.92rem;
+}
+.rationale b{color:var(--teal-deep);}
+:root[data-theme="dark"] .rationale b, @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .rationale b{color:var(--teal);} }
+
+.nav-row{display:flex; gap:10px; margin-top:6px;}
+button.nav{
+  flex:1; padding:12px; border-radius:10px; border:1px solid var(--line);
+  background:var(--card); color:var(--ink); font:inherit; font-weight:600; font-size:0.95rem;
+  cursor:pointer;
+}
+button.nav:disabled{opacity:0.35; cursor:default;}
+button.nav.primary{background:var(--teal); border-color:var(--teal); color:#fff;}
+button.nav.primary:disabled{background:var(--line); border-color:var(--line); color:var(--ink); opacity:0.5;}
+
+.jumpgrid{display:grid; grid-template-columns:repeat(10,1fr); gap:6px; margin:14px 0 4px;}
+.jump-btn{
+  aspect-ratio:1; border-radius:6px; border:1px solid var(--line); background:var(--card);
+  color:var(--ink); font-size:0.72rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.jump-btn.current{border-color:var(--teal); border-width:2px; font-weight:700;}
+.jump-btn.answered-correct{background:var(--good-bg);}
+.jump-btn.answered-wrong{background:var(--bad-bg);}
+details{margin-bottom:18px;}
+summary{cursor:pointer; font-size:0.85rem; color:var(--teal); font-weight:600; margin-bottom:8px;}
+
+.results h2{font-family:'Fraunces',serif; font-size:1.7rem; margin:0 0 4px; color:var(--teal-deep);}
+.score-big{font-family:'Fraunces',serif; font-size:2.6rem; font-weight:600; color:var(--teal);}
+.score-sub{opacity:0.7; margin-bottom:20px;}
+.review-item{border-left:3px solid var(--bad); padding:4px 0 4px 14px; margin-bottom:16px;}
+.review-item .q-text{font-size:0.98rem; margin-bottom:8px;}
+.review-item .yourans{color:var(--bad); font-size:0.9rem; margin:0 0 4px;}
+.review-item .correctans{color:var(--good); font-size:0.9rem; margin:0 0 4px;}
+.review-item .rationale{margin-top:8px;}
+.restart{
+  display:block; width:100%; margin-top:10px; padding:14px; border-radius:10px; border:none;
+  background:var(--teal); color:#fff; font:inherit; font-weight:700; font-size:1rem; cursor:pointer;
+}
+.top-icons{color:var(--teal); font-size:0.78rem; letter-spacing:0.02em;}
+@media (prefers-reduced-motion: reduce){ *{transition:none !important;} }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const DATA = [{"q": "A first responder arrives at an incident and immediately begins treating the casualty without checking the surroundings. Which principle from the lecture was missed first?", "o": ["Secondary survey and SAMPLE history", "Scene safety and BSI", "Distal circulation reassessment", "Psychological first aid"], "a": 1, "r": "Scene safety and BSI are assessed before approaching or treating the patient."}, {"q": "Which sequence correctly follows the Chain of Survival presented in Session 6B?", "o": ["CPR → EMS activation → AED → advanced care → post-arrest care", "EMS activation → CPR → AED → advanced care/transport → post-cardiac arrest care", "AED → EMS activation → CPR → transport → post-arrest care", "EMS activation → AED → CPR → advanced care → post-arrest care"], "a": 1, "r": "EMS activation, CPR, AED, advanced care/transport, then post-cardiac arrest care."}, {"q": "A rescuer sees traffic, fire, chemicals, and an unstable structure around an injured person. What should the rescuer do before approaching?", "o": ["Begin the secondary survey from a safe distance", "Move the patient immediately regardless of the hazards", "Survey the scene and ensure the rescuer's own safety", "Obtain consent before checking for hazards"], "a": 2, "r": "The first step is to survey hazards and ensure the rescuer's own safety."}, {"q": "Which combination correctly matches a BSI precaution with its stated purpose or circumstance?", "o": ["Eye protection — required only after treatment", "Pocket mask/barrier — used for rescue breathing", "Gloves — worn only after patient contact", "Contaminated materials — retained for documentation"], "a": 1, "r": "A pocket mask or barrier device is specified for rescue breathing."}, {"q": "An alert adult casualty permits a trained first responder to provide care. Which approach is specifically required by the lecture?", "o": ["Treat immediately because all adult casualties provide implied consent", "Identify yourself and level of training and obtain verbal consent", "Obtain parental consent before treating any adult", "Skip identification if the patient is conscious"], "a": 1, "r": "Identify yourself/your training and obtain verbal consent from a conscious patient."}, {"q": "During the primary survey, the nurse assesses level of consciousness using AVPU. Which sequence is correct?", "o": ["Alert, Voice, Pain, Unresponsive", "Airway, Ventilation, Pulse, Unresponsive", "Alert, Verbal, Pulse, Unresponsive", "Airway, Voice, Pain, Unresponsive"], "a": 0, "r": "AVPU is Alert, Voice, Pain, Unresponsive."}, {"q": "Which finding belongs specifically under the 'B' component of the ABCDE primary survey?", "o": ["Severe bleeding requiring immediate control", "Level of consciousness using AVPU", "Rate, depth, and effort of breathing", "Exposed injuries while maintaining body temperature"], "a": 2, "r": "Breathing assessment includes rate, depth, and effort."}, {"q": "A casualty has several visible injuries. The responder plans to remove clothing to expose them. Which principle must be maintained during this step?", "o": ["Distal circulation", "Body temperature", "Verbal consent from EMS", "The 10-minute bleeding interval"], "a": 1, "r": "Exposure requires maintaining body temperature."}, {"q": "When should the secondary survey and head-to-toe examination be performed?", "o": ["Before checking airway and breathing", "Before scene safety assessment", "Once life threats are managed", "Only after hospital admission"], "a": 2, "r": "The secondary survey is performed after life threats are managed."}, {"q": "A patient reports taking several medications but cannot remember when they last ate. Which SAMPLE component addresses last food/drink intake?", "o": ["P — Past medical history", "L — Last oral intake", "E — Events", "M — Medications"], "a": 1, "r": "L stands for Last oral intake."}, {"q": "Which situation is specifically associated with implied consent in the lecture?", "o": ["A conscious adult who says no", "A conscious minor when the parent is unavailable", "An unresponsive patient", "Any patient with a traumatic injury"], "a": 2, "r": "Implied consent applies to unresponsive patients."}, {"q": "A conscious patient explicitly declines treatment. Which action is specifically stated under legal considerations?", "o": ["Treat without consent because the situation is urgent", "Document the refusal of care", "Apply implied consent", "Transfer responsibility to a bystander"], "a": 1, "r": "The lecture directs responders to document refusal of care."}, {"q": "A wound is described as a superficial scraping of the skin commonly called road rash. Which wound type is this?", "o": ["Laceration", "Abrasion", "Incision", "Avulsion"], "a": 1, "r": "An abrasion is superficial scraping of the skin."}, {"q": "Which description most precisely identifies a puncture wound?", "o": ["A smooth, clean cut from a sharp object", "A jagged wound produced by tearing", "A deep, narrow wound such as from a nail or needle", "A complete separation of a body part"], "a": 2, "r": "A puncture is a deep, narrow wound such as from a nail or needle."}, {"q": "A nail remains embedded in a patient's foot. What is the lecture's instruction regarding an impaled object?", "o": ["Remove it before assessing distal circulation", "Remove it if bleeding is present", "Do not remove it", "Cut the object flush with the skin"], "a": 2, "r": "Impaled objects should not be removed."}, {"q": "Which wound represents an amputation rather than an avulsion?", "o": ["Tissue is partially torn away but remains attached", "Tissue is completely torn from the surrounding skin but the body part remains connected", "A body part is completely separated", "The skin is superficially scraped"], "a": 2, "r": "Amputation is complete separation of a body part."}, {"q": "An amputated body part is recovered at the scene. Which preservation method is specifically stated?", "o": ["Dry and warm dressing", "Moist, cool dressing", "Alcohol-soaked dressing", "Directly packed in dry gauze only"], "a": 1, "r": "The amputated part is preserved in a moist, cool dressing."}, {"q": "A patient has a large palpable collection of blood under intact skin. Which closed-wound type best matches?", "o": ["Contusion", "Hematoma", "Abrasion", "Puncture"], "a": 1, "r": "A hematoma is a larger collection of blood under the skin forming a palpable mass."}, {"q": "After prolonged pressure to an extremity, the nurse is concerned about compartment syndrome and rhabdomyolysis. Which injury is associated with this risk?", "o": ["Crush injury", "Incision", "Abrasion", "Simple contusion"], "a": 0, "r": "Crush injuries carry risk of compartment syndrome and rhabdomyolysis."}, {"q": "A patient develops rigidity, abdominal distension, and signs of shock after blunt trauma. Which concern is emphasized?", "o": ["Capillary bleeding", "Internal bleeding", "Simple abrasion", "Superficial laceration"], "a": 1, "r": "Rigidity, distension, and shock after blunt trauma are listed signs of internal bleeding."}, {"q": "Which finding is classified as an early local sign of wound infection rather than a systemic sign?", "o": ["Fever and chills", "Malaise and fatigue", "Purulent drainage from the wound", "Swollen lymph nodes near the wound"], "a": 2, "r": "Purulent drainage is listed among early wound-infection signs."}, {"q": "A wound continues bleeding despite direct pressure. Which threshold indicates a need for emergency care?", "o": ["Bleeding uncontrolled within 5 minutes", "Bleeding uncontrolled within 10 minutes", "Bleeding uncontrolled within 15 minutes", "Bleeding uncontrolled within 30 minutes"], "a": 1, "r": "Emergency care is indicated when bleeding cannot be controlled within 10 minutes."}, {"q": "Which bleeding pattern most strongly indicates arterial bleeding?", "o": ["Dark red blood with a steady continuous flow", "Slow oozing that is usually self-limiting", "Bright red blood spurting with each heartbeat", "Blood collected beneath intact skin"], "a": 2, "r": "Arterial bleeding is bright red and spurts with each heartbeat."}, {"q": "A responder applies a dressing and firm continuous pressure to an actively bleeding wound. How long should pressure be maintained?", "o": ["At least 5 minutes without lifting", "At least 10 minutes without lifting", "Exactly 15 minutes without lifting", "Until the dressing becomes saturated"], "a": 1, "r": "Direct pressure is maintained for a minimum of 10 minutes without lifting the dressing."}, {"q": "Blood soaks through the original dressing during direct pressure. What should the responder do?", "o": ["Remove the original dressing and replace it", "Add more dressings on top without removing the original", "Stop pressure and inspect the wound", "Apply a tourniquet to every bleeding wound"], "a": 1, "r": "Additional dressings are added on top; the original is not removed."}, {"q": "A deep wound is located in the groin, where a tourniquet cannot be applied. Which technique is specifically indicated?", "o": ["Circular bandage only", "Wound packing with hemostatic gauze and direct pressure", "Figure-eight bandaging around the pelvis", "Elevation alone"], "a": 1, "r": "Deep junctional wounds where tourniquets cannot be applied are packed with hemostatic gauze and compressed."}, {"q": "When packing a deep junctional wound, where should packing begin?", "o": ["At the skin edge and move inward", "At the shallowest visible area", "From the deepest point of the wound outward", "From the center outward without filling the cavity"], "a": 2, "r": "Packing begins at the deepest point and proceeds outward."}, {"q": "A tourniquet is being applied to an uncontrolled extremity hemorrhage. Which placement is consistent with the lecture?", "o": ["Directly over the nearest joint", "2–3 inches above the wound and not over a joint", "1 inch below the wound", "Around the wound itself regardless of joint location"], "a": 1, "r": "The tourniquet is placed 2–3 inches above the wound, not over a joint."}, {"q": "After a tourniquet is correctly applied and bleeding has stopped, which action is specifically prohibited until hospital care?", "o": ["Marking the time", "Monitoring vital signs", "Loosening or removing the tourniquet", "Preparing for EMS handoff"], "a": 2, "r": "The tourniquet is not loosened or removed until hospital care."}, {"q": "A first tourniquet fails to control severe extremity hemorrhage. What does the lecture direct the responder to do?", "o": ["Remove the first and replace it farther from the wound", "Apply a second tourniquet side by side", "Convert immediately to a pressure dressing", "Loosen the first to restore circulation"], "a": 1, "r": "A second tourniquet is applied side by side if the first does not control bleeding."}, {"q": "Which bandaging direction is specifically taught as the general principle?", "o": ["Proximal to distal, toward the extremity", "Distal to proximal, away from the heart toward the heart", "Medial to lateral only", "Circumferentially from the wound outward without directional preference"], "a": 1, "r": "Bandaging proceeds distal to proximal."}, {"q": "Why should fingertips or toes remain exposed after bandaging?", "o": ["To keep them warm only", "To monitor capillary refill, color, and sensation", "To allow the bandage to loosen naturally", "To permit medication administration"], "a": 1, "r": "Exposed digits permit monitoring of capillary refill, color, and sensation."}, {"q": "Which bandage turn completely overlaps the previous turn and is ideal for uniform circumference areas such as the wrist or forehead?", "o": ["Spiral", "Figure-eight", "Circular", "Spica"], "a": 2, "r": "The circular turn completely overlaps the previous turn and anchors bandages."}, {"q": "A nurse is wrapping a forearm with relatively uniform circumference. Which technique uses 2–3 circular anchor turns distally then spirals upward with consistent overlap?", "o": ["Recurrent turn", "Spiral turn", "Spica turn", "Circular turn only"], "a": 1, "r": "The spiral turn begins with 2–3 distal anchor turns and proceeds upward."}, {"q": "Which bandage turn is specifically intended for joints that must flex, such as the elbow, knee, ankle, or wrist?", "o": ["Figure-eight", "Recurrent", "Circular", "Spiral-reverse only"], "a": 0, "r": "Figure-eight turns are used for joints that must flex."}, {"q": "Which body area is specifically associated with a recurrent bandage turn?", "o": ["Forearm", "Rounded areas such as the head, fingertips, or stump of an amputated limb", "Knee joint only", "Shoulder and hip only"], "a": 1, "r": "Recurrent turns cover rounded areas such as the head, fingertips, or amputation stump."}, {"q": "A student is selecting a spica turn. Which combination of sites is specifically listed?", "o": ["Head, fingertips, stump", "Wrist, forehead, forearm", "Shoulder, hip, groin, or thumb", "Chest, abdomen, and scalp only"], "a": 2, "r": "Spica turns are used for the shoulder, hip, groin, or thumb."}, {"q": "Which statement about the triangular bandage is correct?", "o": ["It is approximately 10–15 inches along each side", "It is approximately 36–40 inches along the base and sides", "It must be made only of cotton", "It cannot be folded into a cravat"], "a": 1, "r": "The triangular bandage is approximately 36–40 inches along its base and sides."}, {"q": "A first responder is preparing a triangular bandage for a cravat. Which sequence begins the folding process correctly?", "o": ["Fold the base to the apex immediately", "Lay it flat with the apex pointing up, then bring the apex down to the center of the base", "Tie a square knot before folding", "Roll it diagonally without bringing the apex to the base"], "a": 1, "r": "Folding begins with the apex pointing up, then the apex is brought to the center of the base."}, {"q": "Which knot is identified as the only knot approved for securing bandages in first aid?", "o": ["Granny knot", "Half hitch", "Square (reef) knot", "Slip knot"], "a": 2, "r": "The lecture identifies the square (reef) knot as the approved knot for securing bandages."}, {"q": "A patient has a suspected elbow fracture. Which action follows the specific cravat instruction?", "o": ["Force the elbow into 90 degrees before bandaging", "Splint in the position found and do not force flexion", "Fully extend the elbow to improve circulation", "Apply the figure-eight only after active flexion"], "a": 1, "r": "With suspected fracture, the elbow is splinted in the position found; flexion is not forced."}, {"q": "For a cravat applied to a hand/palm wound, which finding indicates correct positioning after application?", "o": ["Fingertips are covered completely", "The hand is elevated above heart level and fingertips remain exposed", "The knot is placed directly over the wound", "The wrist is flexed tightly to secure the dressing"], "a": 1, "r": "The hand is elevated and fingertips are exposed for circulation/sensation checks."}, {"q": "A patient has an ankle injury requiring cravat support. Which position is specified before application?", "o": ["Foot plantar-flexed at 30 degrees", "Foot at a 90-degree angle in neutral position", "Foot fully inverted", "Foot fully everted"], "a": 1, "r": "The foot is positioned at 90 degrees in neutral position."}, {"q": "An open chest wound is being managed with a cravat. What must occur before the cravat is used to secure the dressing?", "o": ["Apply a dry gauze dressing only", "Apply an occlusive dressing or chest seal first", "Wrap the chest circumferentially first", "Place the patient prone"], "a": 1, "r": "An open chest wound requires an occlusive dressing/chest seal before securing it."}, {"q": "The lecture describes a three-sided taped occlusive dressing for an open chest wound. What is the purpose of leaving one side open?", "o": ["To permit blood to enter the wound", "To allow air out while preventing air in", "To permit the dressing to fall away during transport", "To provide direct access for wound irrigation"], "a": 1, "r": "Three-sided taping allows air out while preventing air in."}, {"q": "A patient with an open abdominal wound has eviscerated organs. Which action is specifically prohibited?", "o": ["Covering the organs with a moist sterile dressing", "Applying an occlusive dressing over the moist dressing", "Pushing the eviscerated organs back into the abdominal cavity", "Positioning the patient supine with knees flexed"], "a": 2, "r": "Eviscerated organs are not pushed back into the abdominal cavity."}, {"q": "Why are the patient's knees flexed during management of an open abdominal wound?", "o": ["To increase abdominal wall tension", "To reduce abdominal wall tension", "To improve distal circulation to the feet", "To facilitate shoulder immobilization"], "a": 1, "r": "Knees are flexed to reduce abdominal wall tension."}, {"q": "A nurse is applying a sling and swathe for a shoulder dislocation. Which sequence is correct?", "o": ["Swathe first, then sling", "Sling first, then swathe", "Splint first, then remove the sling", "Swathe only without a sling"], "a": 1, "r": "The lecture specifies sling first, then swathe."}, {"q": "When applying a swathe, where should it pass in relation to the elbow?", "o": ["Above the elbow", "Directly across the elbow", "Over the forearm but below the elbow", "Only around the wrist"], "a": 2, "r": "The swathe passes over the forearm but below the elbow."}, {"q": "A rigid splint is being secured with cravats for a suspected fracture. Which placement principle is correct?", "o": ["Immobilize only the fracture site", "Immobilize the joint above and below the suspected fracture", "Place all knots against the skin", "Use only one cravat regardless of injury location"], "a": 1, "r": "Splinting immobilizes the joint above and below the suspected fracture."}, {"q": "An improvised tourniquet must be used because a commercial tourniquet is unavailable. Which minimum cravat width is specified?", "o": ["1 inch", "1.5 inches", "At least 2 inches", "4 inches only"], "a": 2, "r": "The improvised cravat tourniquet is folded to at least 2 inches wide."}, {"q": "When making an improvised cravat tourniquet, where is it wrapped relative to the wound?", "o": ["Directly over the wound", "2–3 inches above the wound", "2–3 inches below the wound", "Around the nearest joint"], "a": 1, "r": "It is wrapped 2–3 inches above the wound."}, {"q": "Which statement correctly distinguishes a commercial tourniquet from an improvised cravat tourniquet?", "o": ["Improvised tourniquets are preferred because they are safer", "Commercial CAT/SOFT-T tourniquets are preferred because they are faster, more effective, and safer", "Commercial tourniquets should only be used after hospital arrival", "Improvised tourniquets have a lower failure rate"], "a": 1, "r": "Commercial CAT/SOFT-T tourniquets are preferred because they are faster, more effective, and safer."}, {"q": "Which cravat application is specifically described as a pelvic binder?", "o": ["Tying around the pelvis at the level of the greater trochanters", "Tying around the waist at the umbilicus", "Wrapping around the chest below the nipples", "Securing around the knees"], "a": 0, "r": "The pelvic binder is tied at the level of the greater trochanters."}, {"q": "Which principle is emphasized in the Session 6B key takeaways after every bandage or splint application?", "o": ["Remove the bandage every 5 minutes", "Check circulation after every application", "Keep all digits covered", "Use granny knots for rapid removal"], "a": 1, "r": "The key takeaways emphasize checking circulation after every application."}, {"q": "Which description most closely matches the lecture's definition of a disaster?", "o": ["Any isolated injury requiring hospital treatment", "A serious disruption caused by hazardous events interacting with exposure, vulnerability, and capacity, producing losses", "Any weather event that produces property damage", "Any event requiring an ambulance"], "a": 1, "r": "The lecture defines disaster as serious disruption arising from hazardous events interacting with exposure, vulnerability, and capacity, producing losses."}, {"q": "Which combination contains only natural disasters listed in the lecture?", "o": ["Earthquakes, hurricanes/typhoons, floods/tsunamis, wildfires", "Chemical spills, biological attacks, earthquakes, cyberattacks", "Terrorist attacks, industrial accidents, droughts, landslides", "Transportation disasters, volcanoes, chemical spills, pandemics"], "a": 0, "r": "Those four are listed in the natural-disaster column."}, {"q": "Following an earthquake, a rescue team remains at risk because aftershocks may occur. Which nursing concern is specifically linked to earthquakes?", "o": ["Only waterborne disease", "Crush injuries, fractures, entrapment, and ongoing rescue danger", "Only smoke inhalation", "Only hypothermia"], "a": 1, "r": "Earthquakes are associated with crush injuries, fractures, entrapment, infrastructure collapse, and aftershock danger."}, {"q": "Which statement about hurricanes and typhoons matches the lecture?", "o": ["Category 1–5 storms have sustained winds below 40 mph", "Storm surge, extreme rainfall, and flooding cause most fatalities", "Power outages have no effect on medical equipment", "Dialysis patients are unaffected by evacuation"], "a": 1, "r": "Storm surge, extreme rainfall, and flooding are listed as causing most fatalities."}, {"q": "A community affected by flooding is experiencing contaminated water and increased cases of cholera, typhoid, and leptospirosis. Which disaster type and nursing focus best fit?", "o": ["Tornadoes; penetrating trauma management", "Floods/tsunamis; waterborne disease surveillance and contaminated-environment wound care", "Wildfires; smoke inhalation management only", "Earthquakes; radiation screening"], "a": 1, "r": "Floods/tsunamis are linked to contaminated water and waterborne disease surveillance."}, {"q": "Which finding is specifically associated with EF5 tornadoes in the lecture?", "o": ["Sustained winds exceeding 300 mph", "Pyroclastic flows at 700°C", "Tropical cyclones entering PAR", "Radiation exposure from nuclear plants"], "a": 0, "r": "EF5 tornadoes are described as having wind speeds exceeding 300 mph."}, {"q": "A patient exposed to wildfire smoke has respiratory distress and worsening asthma/COPD. Which disaster-specific concern is directly supported?", "o": ["Smoke inhalation", "Radiation contamination", "Waterborne disease", "Compartment syndrome"], "a": 0, "r": "Wildfire smoke inhalation can cause respiratory distress and exacerbate asthma/COPD."}, {"q": "Which statement about volcanic eruptions is specifically supported by the lecture?", "o": ["Pyroclastic flows reach approximately 70°C", "Volcanic ash contains silica particles associated with silicosis, bronchitis, and asthma exacerbation", "Lava flows are the only hazard", "Volcanic eruptions do not contaminate water supplies"], "a": 1, "r": "Volcanic ash contains silica particles associated with silicosis, bronchitis, and asthma exacerbation."}, {"q": "A chemical-disaster casualty arrives contaminated with a suspected nerve agent. Which intervention is identified as critical before medical treatment?", "o": ["Immediate oral hydration", "Immediate decontamination", "Delayed decontamination after hospital admission", "Immediate wound suturing"], "a": 1, "r": "Immediate decontamination is critical before medical treatment in chemical disasters."}, {"q": "Which pairing is correct according to the chemical-disaster section?", "o": ["Sarin/VX — nerve agents", "Mustard gas — radiation agent", "Chlorine — vesicant", "Sarin — biological agent"], "a": 0, "r": "Sarin and VX are nerve agents."}, {"q": "Which radiation-related statement is correct according to the lecture?", "o": ["Contamination means only external exposure with no radioactive material on/in the body", "Irradiation refers to exposure to external radiation", "Potassium iodide is given to treat every radiation injury", "Removing clothing removes none of the external contamination"], "a": 1, "r": "The lecture defines irradiation as exposure to external radiation."}, {"q": "Approximately what percentage of external radioactive contamination can be removed by removing clothing?", "o": ["25%", "50%", "75%", "~90%"], "a": 3, "r": "Removing clothing removes approximately 90% of external contamination."}, {"q": "A mass casualty incident is best defined in the lecture as an event in which:", "o": ["Any casualty has more than one injury", "The number of casualties overwhelms available healthcare resources and requires triage-based prioritization", "Only trauma patients are involved", "Hospital beds are temporarily unavailable"], "a": 1, "r": "An MCI overwhelms available healthcare resources and requires triage-based prioritization."}, {"q": "An explosion victim has injuries caused by the pressure wave, shrapnel, body displacement, and burns/inhalation. Which sequence matches the blast-injury classification?", "o": ["Primary, secondary, tertiary, quaternary", "Tertiary, primary, quaternary, secondary", "Secondary, primary, tertiary, quaternary", "Primary, tertiary, secondary, quaternary"], "a": 0, "r": "Blast injuries are classified as primary, secondary, tertiary, and quaternary."}, {"q": "Which is specifically emphasized for active-shooter events?", "o": ["Radiation shielding and thyroid screening", "Penetrating trauma, hemorrhage control, tourniquet use, and rapid evacuation", "Long-term livelihood restoration only", "Waterborne disease surveillance"], "a": 1, "r": "Active-shooter response emphasizes penetrating trauma, hemorrhage control, tourniquets, and rapid evacuation."}, {"q": "Which phase of disaster management involves planning, training, drills, and resource stockpiling before a disaster strikes?", "o": ["Preparedness", "Mitigation", "Response", "Recovery"], "a": 0, "r": "Preparedness includes planning, training, drills, and stockpiling before a disaster."}, {"q": "A hospital installs flood barriers, upgrades building codes, and retrofits structures. Which disaster-management phase and mitigation category are represented?", "o": ["Preparedness; non-structural", "Mitigation; structural", "Response; healthcare-specific", "Recovery; non-structural"], "a": 1, "r": "Building codes, retrofitting, flood barriers, and safe construction are structural mitigation."}, {"q": "Which is classified as non-structural mitigation in the lecture?", "o": ["Building codes and retrofitting", "Flood barriers and levees", "Land-use planning and zoning", "Emergency generator installations"], "a": 2, "r": "Land-use planning and zoning are non-structural mitigation."}, {"q": "Which activity belongs specifically to healthcare-specific mitigation?", "o": ["Pharmaceutical stockpiling", "Community public education only", "Insurance programs only", "Land-use zoning only"], "a": 0, "r": "Pharmaceutical stockpiling is healthcare-specific mitigation."}, {"q": "Which activity is characteristic of the response phase?", "o": ["Developing long-term zoning regulations", "Activating ICS, mobilizing resources, and coordinating agencies", "Rebuilding infrastructure years later", "Establishing permanent economic diversification"], "a": 1, "r": "Response includes ICS activation, resource mobilization, and interagency coordination."}, {"q": "Which pairing correctly matches a disaster-management phase with an example from the lecture?", "o": ["Recovery — field hospitals and trauma stabilization", "Preparedness — personal and family emergency plans", "Response — long-term infrastructure reconstruction", "Mitigation — immediate mass-casualty triage only"], "a": 1, "r": "Personal and family emergency planning is listed under nurse preparedness."}, {"q": "Which nursing role is NOT one of the ten essential disaster-nurse roles explicitly listed?", "o": ["Preparedness & Planning", "Triage & Treatment", "Recovery Support", "Judicial Adjudication"], "a": 3, "r": "Judicial adjudication is not among the ten listed disaster-nurse roles."}, {"q": "During a disaster assessment, which pairing is correctly matched?", "o": ["Respiratory/Airway — airway patency, breathing rate, breath sounds, oxygen saturation", "Cardiovascular — only pupil response", "Neurological — only blood pressure", "Psychosocial — only capillary refill"], "a": 0, "r": "Respiratory/airway assessment includes airway patency, breathing rate, breath sounds, and oxygen saturation."}, {"q": "According to the lecture, START triage is designed to assess each patient in approximately:", "o": ["Under 30 seconds", "Under 60 seconds", "Under 5 minutes", "Under 10 minutes"], "a": 1, "r": "START is described as assessing each patient in under 60 seconds."}, {"q": "Which sequence correctly expands SALT?", "o": ["Sort, Assess, Lifesaving Interventions, Treatment/Transport", "Survey, Airway, Lifesaving Treatment, Triage", "Sort, Airway, Locate, Transfer", "Stabilize, Assess, Locate, Transport"], "a": 0, "r": "SALT means Sort, Assess, Lifesaving Interventions, Treatment/Transport."}, {"q": "In SALT triage, what occurs during the 'S — Sort' step?", "o": ["Patients are categorized by walking, waving/purposeful movement, and still/obvious life threat", "Individual assessment begins with the least injured", "Only respiratory rate is assessed", "Transport destination is assigned before sorting"], "a": 0, "r": "Sort categorizes by walking, waving/purposeful movement, or still/obvious life threat."}, {"q": "Which statement distinguishes START from SALT according to the comparison table?", "o": ["START performs lifesaving interventions during triage; SALT does not", "SALT performs lifesaving interventions during assessment; START does not", "START uses black and grey categories; SALT uses only red and yellow", "SALT is limited to small MCIs"], "a": 1, "r": "SALT performs lifesaving interventions during assessment; START does not during triage."}, {"q": "Which SALT triage category is included in the lecture but not listed in the START category row?", "o": ["Red", "Yellow", "Green", "Grey"], "a": 3, "r": "The SALT category row includes Grey in addition to Red, Yellow, and Green."}, {"q": "Which pediatric triage system is listed as the version associated with START?", "o": ["SALT-Pediatric", "JumpSTART", "ESI-Pediatric", "CTAS-Pediatric"], "a": 1, "r": "JumpSTART is the pediatric version listed with START."}, {"q": "A survivor is overwhelmed and needs immediate emotional and practical support. Which Psychological First Aid component focuses on calming the person?", "o": ["Contact and engagement", "Stabilization", "Information gathering", "Linkage with collaborative services"], "a": 1, "r": "Stabilization is the PFA component for calming overwhelmed survivors."}, {"q": "Which statement about disaster-related mental health effects is consistent with the lecture?", "o": ["PTSD prevalence among survivors is listed as 10–30%", "PTSD occurs only among healthcare workers", "Children have no long-term developmental effects", "Healthcare workers experience no secondary trauma"], "a": 0, "r": "The survivor PTSD prevalence given is 10–30%."}, {"q": "Which group is specifically described as having mobility limitations, chronic conditions, medication dependency, social isolation, and cognitive decline as vulnerability factors?", "o": ["Children", "Older adults", "Non-English speakers", "Pregnant women"], "a": 1, "r": "Older adults are described with those mobility, chronic-condition, medication, isolation, and cognitive vulnerabilities."}, {"q": "The lecture states that what percentage of people in poverty lack resources to evacuate?", "o": ["14%", "24%", "44%", "64%"], "a": 2, "r": "The lecture states that 44% of people in poverty lack resources to evacuate."}, {"q": "During Hurricane Katrina, which figure is specifically reported for New Orleans flooding?", "o": ["20%", "44%", "60%", "80%"], "a": 3, "r": "The lecture reports 80% of New Orleans flooded during Katrina."}, {"q": "Which disaster case study involved a magnitude 9.0 earthquake plus tsunami, nuclear meltdown, and 154,000+ evacuees?", "o": ["Haiti earthquake", "Fukushima nuclear disaster", "Hurricane Katrina", "COVID-19 pandemic"], "a": 1, "r": "Fukushima is described as magnitude 9.0 earthquake plus tsunami, nuclear meltdown, and 154,000+ evacuated."}, {"q": "According to Session 10, approximately how many islands make up the Philippine archipelago?", "o": ["5,641", "6,641", "7,641", "8,641"], "a": 2, "r": "The lecture states the Philippines is an archipelago of 7,641 islands."}, {"q": "The lecture states that an average of how many tropical cyclones enter the Philippine Area of Responsibility annually, with how many making landfall?", "o": ["10–11; 2–3", "20–21; 8–9", "30–31; 10–11", "15–16; 5–6"], "a": 1, "r": "An average of 20–21 tropical cyclones enter PAR annually, with 8–9 making landfall."}, {"q": "Approximately what proportion of the country's total land area and population are exposed to multiple hazards?", "o": ["40% land and 54% population", "50% land and 64% population", "60% land and 74% population", "70% land and 84% population"], "a": 2, "r": "Approximately 60% of land area and 74% of the population are exposed to multiple hazards."}, {"q": "Which historical disaster is listed with 6,300+ deaths, 4 million displaced, and $2 billion in damage?", "o": ["Typhoon Ondoy (2009)", "Typhoon Yolanda (2013)", "Typhoon Rolly (2020)", "Typhoon Odette (2021)"], "a": 1, "r": "Typhoon Yolanda is listed with 6,300+ deaths, 4M displaced, and $2B damage."}, {"q": "Which law signed on May 27, 2010 replaced PD 1566 and represented the paradigm shift toward proactive disaster risk reduction?", "o": ["RA 9003", "RA 9729", "RA 10121", "RA 10632"], "a": 2, "r": "RA 10121 was signed May 27, 2010 and replaced PD 1566."}, {"q": "Under RA 10121, which institutional change is explicitly identified?", "o": ["NDRRMC was renamed NDCC", "NDCC was renamed NDRRMC", "PAGASA was renamed NDRRMC", "OCD was renamed NDCC"], "a": 1, "r": "RA 10121 renamed NDCC as NDRRMC."}, {"q": "Which agency is identified as the implementing arm of the NDRRMC that formulates and implements the NDRRMP?", "o": ["DILG", "DSWD", "OCD", "NEDA"], "a": 2, "r": "OCD is the implementing arm of NDRRMC and formulates/implements the NDRRMP."}, {"q": "Which NDRRMC thematic pillar/vice-chair pairing is correct?", "o": ["DOST — Prevention/Mitigation", "DILG — Response", "DSWD — Rehabilitation/Recovery", "NEDA — Preparedness"], "a": 0, "r": "DOST is the vice chair for Prevention/Mitigation."}, {"q": "Which agency is identified as the primary source of Philippine weather information and issues tropical cyclone warnings, rainfall advisories, and severe weather bulletins?", "o": ["DOST-PHIVOLCS", "DOST-PAGASA", "DENR-MGB", "DILG"], "a": 1, "r": "DOST-PAGASA is the national meteorological and hydrological agency and primary weather-information source."}, {"q": "Which statement correctly combines a Session 10 preparedness fact with its corresponding policy or system?", "o": ["Operation Listo is a DILG-led multi-hazard preparedness protocol for LGUs activated before predicted hazards", "PDNA is a pre-disaster warning system led by PAGASA", "GeoRiskPH is a DSWD relief distribution program", "AADMER is a Philippine law requiring exactly 5% LDRRMF allocation"], "a": 0, "r": "Operation Listo is the DILG-led multi-hazard preparedness protocol for LGUs, activated before predicted hazard events."}];
+const PART_BOUNDARIES = [[0,55,"Part I — Session 6B: First Aid Fundamentals"],[55,90,"Part II — Sessions 7–9: Disaster Types, Management, Triage & PFA"],[90,100,"Part III — Session 10: Philippines Disaster Management"]];
+function partFor(i){ for(const [s,e,label] of PART_BOUNDARIES){ if(i>=s && i<e) return label; } return ""; }
+
+let state = { i:0, answers:new Array(DATA.length).fill(null), done:false };
+
+function letter(n){ return String.fromCharCode(65+n); }
+
+function render(){
+  const app = document.getElementById('app');
+  if(state.done){ app.innerHTML = renderResults(); attachResultsHandlers(); return; }
+  app.innerHTML = renderQuestion();
+  attachQuestionHandlers();
+}
+
+function renderQuestion(){
+  const idx = state.i;
+  const item = DATA[idx];
+  const answered = state.answers[idx];
+  const pct = Math.round(((idx)/DATA.length)*100);
+
+  let optsHtml = item.o.map((opt,oi)=>{
+    let cls = 'opt';
+    let disabledAttr = '';
+    if(answered !== null){
+      disabledAttr = 'disabled';
+      if(oi === item.a) cls += ' correct';
+      else if(oi === answered) cls += ' incorrect';
+      else cls += ' dim';
+    }
+    return `<button class="${cls}" data-oi="${oi}" ${disabledAttr}>
+      <span class="opt-letter">${letter(oi)}</span><span>${opt}</span>
+    </button>`;
+  }).join('');
+
+  let rationaleHtml = '';
+  if(answered !== null){
+    rationaleHtml = `<div class="rationale"><b>${answered===item.a?'Correct.':'Not quite.'}</b> ${item.r}</div>`;
+  }
+
+  const answeredCount = state.answers.filter(a=>a!==null).length;
+
+  let jumpHtml = state.showJump ? `<div class="jumpgrid">${DATA.map((d,j)=>{
+    let c='jump-btn'; if(j===idx) c+=' current';
+    if(state.answers[j]!==null) c += (state.answers[j]===d.a? ' answered-correct':' answered-wrong');
+    return `<button class="${c}" data-jump="${j}">${j+1}</button>`;
+  }).join('')}</div>` : '';
+
+  return `
+    <div class="top-icons">NCM 121 · EMERGENCY &amp; DISASTER NURSING</div>
+    <h1>Session 6B–10 Reviewer</h1>
+    <p class="sub">100 items · ${answeredCount} answered so far</p>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-label">${idx+1} / ${DATA.length}</div>
+    </div>
+    <details ${state.showJump?'open':''}>
+      <summary id="jumpToggle">${state.showJump?'Hide':'Jump to a question'}</summary>
+      ${jumpHtml}
+    </details>
+    <div class="card">
+      <div class="part-label">${partFor(idx)}</div>
+      <p class="q-text">${idx+1}. ${item.q}</p>
+      ${optsHtml}
+      ${rationaleHtml}
+    </div>
+    <div class="nav-row">
+      <button class="nav" id="prevBtn" ${idx===0?'disabled':''}>Previous</button>
+      <button class="nav primary" id="nextBtn" ${answered===null?'disabled':''}>${idx===DATA.length-1?'See results':'Next question'}</button>
+    </div>
+  `;
+}
+
+function attachQuestionHandlers(){
+  document.querySelectorAll('.opt').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      if(state.answers[state.i] !== null) return;
+      state.answers[state.i] = parseInt(btn.dataset.oi,10);
+      render();
+    });
+  });
+  const jt = document.getElementById('jumpToggle');
+  if(jt) jt.addEventListener('click', (e)=>{ e.preventDefault(); state.showJump = !state.showJump; render(); });
+  document.querySelectorAll('[data-jump]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ state.i = parseInt(btn.dataset.jump,10); render(); });
+  });
+  const prev = document.getElementById('prevBtn');
+  if(prev) prev.addEventListener('click', ()=>{ if(state.i>0){ state.i--; render(); } });
+  const next = document.getElementById('nextBtn');
+  if(next) next.addEventListener('click', ()=>{
+    if(state.i < DATA.length-1){ state.i++; render(); }
+    else { state.done = true; render(); }
+  });
+}
+
+function renderResults(){
+  const correct = state.answers.filter((a,i)=>a===DATA[i].a).length;
+  const total = DATA.length;
+  const wrongIdx = state.answers.map((a,i)=>({a,i})).filter(x=>x.a!==null && x.a!==DATA[x.i].a).map(x=>x.i);
+  const unanswered = state.answers.filter(a=>a===null).length;
+
+  let reviewHtml = wrongIdx.length === 0
+    ? `<p style="opacity:0.75">No missed items to review${unanswered? ' among what you answered':''}. Nice work.</p>`
+    : wrongIdx.map(i=>{
+        const item = DATA[i];
+        return `<div class="review-item">
+          <p class="q-text">${i+1}. ${item.q}</p>
+          <p class="yourans">Your answer: ${letter(state.answers[i])}. ${item.o[state.answers[i]]}</p>
+          <p class="correctans">Correct: ${letter(item.a)}. ${item.o[item.a]}</p>
+          <div class="rationale">${item.r}</div>
+        </div>`;
+      }).join('');
+
+  return `
+    <div class="top-icons">NCM 121 · EMERGENCY &amp; DISASTER NURSING</div>
+    <div class="results">
+      <h2>Reviewer complete</h2>
+      <div class="score-big">${correct} / ${total}</div>
+      <p class="score-sub">${Math.round((correct/total)*100)}% correct${unanswered? ' · '+unanswered+' left unanswered':''}</p>
+      ${reviewHtml}
+      <button class="restart" id="restartBtn">Retake the reviewer</button>
+    </div>
+  `;
+}
+
+function attachResultsHandlers(){
+  document.getElementById('restartBtn').addEventListener('click', ()=>{
+    state = { i:0, answers:new Array(DATA.length).fill(null), done:false };
+    render();
+  });
+}
+
+render();
+</script>
+</body>
+</html>
